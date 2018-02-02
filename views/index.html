@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+</head>
+<body>
+	<!-- Header and navbar -->
+	<header>
+		<nav>
+			<div class="navbar">
+				<h1> login </h1>
+			</div>
+		</nav>
+	</header>
+
+	<!-- Main Content -->
+	<section>
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-3">
+					<h3>Login</h3>
+					<form>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="text" name="email" class="form-control login-email-field" value='prachi@gmail.com'>
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" name="password" class="form-control login-password-field" value="prachi123">
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-info loginBtn" value="Login">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-3">
+					<h3>Signup</h3>
+					<form>
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" name="name" class="form-control sign-name-field">
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="text" name="password" class="form-control sign-email-field">
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" name="email" class="form-control sign-password-field">
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-info signBtn" value="Signup">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		
+	</footer>
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		// document ready
+		$(document).ready(function(){
+
+			// For login
+			$('.loginBtn').click(function(e) {
+				e.preventDefault();
+
+				var email = $('.login-email-field').val();
+				var password = $('.login-password-field').val();
+
+				if ( email.length == 0 ) {
+					alert("Email Field is required");
+					return false;
+				}
+
+				if ( password.length == 0 ) {
+					alert("Password Field is required");
+					return false;
+				}
+
+				var emailRegex="^([a-zA-Z0-9_.]+@[a-zA-Z0-9]+[.][.a-zA-Z]+)$";
+				   if(!email.match(emailRegex))
+				   {
+				   	   alert("invalid mail format");
+				   }
+
+				var request = $.ajax({
+					"url": "http://localhost:3001/login",
+					"type": "POST",
+					"data": {
+						"email" : email,
+						"password": password
+					}
+				});
+
+				request.success(function(data){
+					console.log(data);
+					if ( data.status == 1 ) {
+						var userData = data.response;
+						console.log(userData);
+						localStorage.setItem('user', JSON.stringify(userData));
+						window.location.replace('home.html');
+					} else {
+						alert("Invalid Credential");
+					}
+				});
+
+				request.fail(function(error){
+					console.log("error");
+				});
+			});
+
+			// For signup
+			$('.signBtn').click(function(e) {
+				e.preventDefault();
+
+				var name = $('.sign-name-field').val();
+				var email = $('.sign-email-field').val();
+				var password = $('.sign-password-field').val();
+
+				if(name.length==0)
+				{
+					alert("name field is required");
+					return false;
+				}
+
+				if ( email.length == 0 ) {
+					alert("Email Field is required");
+					return false;
+				}
+
+				if ( password.length == 0 ) {
+					alert("Password Field is required");
+					return false;
+				}
+				var emailRegex="^([a-zA-Z0-9_.]+@[a-zA-Z0-9]+[.][.a-zA-Z]+)$";
+			    if(!email.match(emailRegex))
+				 {
+				   	   alert("invalid mail format");
+				 }
+
+				var request = $.ajax({
+					"url": "http://localhost:3001/signup",
+					"type": "POST",
+					"data": {
+						"name" : name,
+						"email" : email,
+						"password": password
+					}
+				});
+
+				request.success(function(data){
+					if ( data === "success" ) {
+						window.location.replace('home1.html');
+					} else {
+						alert("invalid Credential");
+					}
+				});
+
+				request.fail(function(error){
+					console.log("error");
+				});
+			});
+
+
+		});
+
+		$(window).load(function(){
+			var userData = localStorage.getItem('user');
+			console.log(userData);
+
+			if ( userData != null ) {
+				window.location.replace('home.html');
+			} 
+		});
+		
+		// $(window).scroll();
+		
+		// $(window).resize();
+	</script>
+</body>
+</html>

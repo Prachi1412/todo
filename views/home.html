@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tset</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+</head>
+<body>
+	<!-- Header and navbar -->
+	<header>
+		<nav>
+			<div class="navbar">
+				Test
+			</div>
+		</nav>
+	</header>
+
+	<!-- Main Content -->
+	<section>
+		<div class="jumbotron">
+			<h1>Welcome <span class="nameField"></span>!!!</h1>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		
+	</footer>
+
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		// document ready
+		$(document).ready(function(){
+			var userData = localStorage.getItem('user');
+			var userData = JSON.parse(userData);
+			console.log(userData);
+			$('.nameField').empty();
+			$('.nameField').html(userData.name);
+		});
+	</script>
+</body>
+</html>

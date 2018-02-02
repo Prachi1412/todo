@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+</head>
+<body>
+	<!-- Header and navbar -->
+	<header>
+		<nav>
+			<div class="navbar">
+				  <h1>Your Task</h1>
+			</div>
+		</nav>
+	</header>
+
+	<!-- Main Content -->
+	<section>
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-3">
+					
+					<form>
+						<div class="form-group">
+							<label>User Id</label>
+							<input type="text" name="userid" class="form-control save-userid-field">
+						</div>
+						<div class="form-group">
+							<label>Task</label>
+							<input type="text" name="task" class="form-control save-task-field">
+						</div>
+						<div class="form-group">
+							<label>Date</label>
+							<input type="Date" name="date" class="form-control save-date-field">
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-info saveBtn" value="ADD">
+							<input type="submit" class="btn btn-info updateBtn" value="Update">
+							<input type="submit" class="btn btn-info deleteBtn" value="Delete">
+							<input type="submit" class="btn btn-info viewBtn" value="View">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		
+	</footer>
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		// document ready
+		$(document).ready(function(){
+
+			
+
+			// For save
+			$('.saveBtn').click(function(e) {
+				e.preventDefault();
+
+				var userid = $('.save-userid-field').val();
+				var task = $('.save-task-field').val();
+				var date = $('.save-date-field').val();
+
+				if(userid.length==0)
+				{
+					alert("id field is required");
+					return false;
+				}
+
+				if ( task.length == 0 ) {
+					alert("task  Field is required");
+					return false;
+				}
+
+				var request = $.ajax({
+					"url": "http://localhost:3001/save",
+					"type": "POST",
+					"data": {
+						"userid" : userid,
+						"task" : task,
+						"date": date
+					}
+				});
+
+				request.success(function(data){
+					if ( data === "success" ) {
+						alert("data saved");
+						//window.location.replace('home1.html');
+					} else {
+						alert("invalid Credential");
+					}
+				});
+
+				request.fail(function(error){
+					console.log("error");
+				});
+			});
+				// For update
+			$('.updateBtn').click(function(e) {
+				e.preventDefault();
+
+				var userid = $('.save-userid-field').val();
+				var task = $('.save-task-field').val();
+				var date = $('.save-date-field').val();
+
+				if(userid.length==0)
+				{
+					alert("id field is required");
+					return false;
+				}
+
+				if ( task.length == 0 ) {
+					alert("task  Field is required");
+					return false;
+				}
+
+				var request = $.ajax({
+					"url": "http://localhost:3001/update",
+					"type": "POST",
+					"data": {
+						"userid" : userid,
+						"task" : task,
+						"date": date
+					}
+				});
+
+				request.success(function(data){
+					if ( data === "success" ) {
+						alert("update data");
+						//window.location.replace('home1.html');
+					} else {
+						alert("invalid Credential");
+					}
+				});
+
+				request.fail(function(error){
+					console.log("error");
+				});
+			});
+
+			    //delete
+
+			$('.deleteBtn').click(function(e) {
+				e.preventDefault();
+
+				var userid = $('.save-userid-field').val();
+				if(userid.length==0)
+				{
+					alert("id field is required");
+					return false;
+				}
+
+				/* if( task.length == 0 ) {
+					alert("task  Field is required");
+					return false;
+				}*/
+
+				var request = $.ajax({
+					"url": "http://localhost:3001/delete",
+					"type": "POST",
+					"data": {
+						"userid" :userid
+					}
+				});
+
+				request.success(function(data){
+					if ( data === "success" ) {
+						alert("delete data");
+						//window.location.replace('home1.html');
+					} else {
+						alert("invalid Credential");
+					}
+				});
+
+				request.fail(function(error){
+					console.log("error");
+				});
+			});
+
+			// view data
+			$('.viewBtn').click(function(e) {
+				e.preventDefault();
+
+				var userid = $('.save-userid-field').val();
+				var task = $('.save-task-field').val();
+				var date = $('.save-date-field').val();
+					var request = $.ajax({
+					"url": "http://localhost:3001/view",
+					"type": "POST",
+					"data": {
+						"userid" : userid,
+						"task" : task,
+						"date": date
+					}
+				});
+
+				request.success(function(data){
+					if ( data === "success" ) {
+						alert("view  data");
+						//window.location.replace('home1.html');
+					} else {
+						alert("invalid Credential");
+					}
+				});
+
+				request.fail(function(error){
+					console.log("error");
+				});
+			});
+
+
+
+		});
+
+		// $(window).load(function(){
+
+		// });
+		
+		// $(window).scroll();
+		
+		// $(window).resize();
+	</script>
+</body>
+</html>
