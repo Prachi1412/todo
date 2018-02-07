@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Test</title>
+        <title>Test</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 </head>
@@ -55,18 +55,13 @@
 	<script type="text/javascript">
 		// document ready
 		$(document).ready(function(){
-
-			
-
-			// For save
-			$('.saveBtn').click(function(e) {
-				e.preventDefault();
-
-				var userid = $('.save-userid-field').val();
-				var task = $('.save-task-field').val();
-				var date = $('.save-date-field').val();
-
-				if(userid.length==0)
+	// For save
+	$('.saveBtn').click(function(e) {
+	    e.preventDefault();
+                var userid = $('.save-userid-field').val();
+		var task = $('.save-task-field').val();
+		var date = $('.save-date-field').val();
+                     if(userid.length==0)
 				{
 					alert("id field is required");
 					return false;
@@ -86,8 +81,7 @@
 						"date": date
 					}
 				});
-
-				request.success(function(data){
+                                 request.success(function(data){
 					if ( data === "success" ) {
 						alert("data saved");
 						//window.location.replace('home1.html');
@@ -100,15 +94,13 @@
 					console.log("error");
 				});
 			});
-				// For update
-			$('.updateBtn').click(function(e) {
-				e.preventDefault();
-
-				var userid = $('.save-userid-field').val();
-				var task = $('.save-task-field').val();
-				var date = $('.save-date-field').val();
-
-				if(userid.length==0)
+	// For update
+	$('.updateBtn').click(function(e) {
+	    e.preventDefault();
+                var userid = $('.save-userid-field').val();
+		var task = $('.save-task-field').val();
+	        var date = $('.save-date-field').val();
+                                  if(userid.length==0)
 				{
 					alert("id field is required");
 					return false;
@@ -132,7 +124,6 @@
 				request.success(function(data){
 					if ( data === "success" ) {
 						alert("update data");
-						//window.location.replace('home1.html');
 					} else {
 						alert("invalid Credential");
 					}
@@ -143,23 +134,15 @@
 				});
 			});
 
-			    //delete
+         //delete
 
-			$('.deleteBtn').click(function(e) {
-				e.preventDefault();
-
-				var userid = $('.save-userid-field').val();
-				if(userid.length==0)
-				{
-					alert("id field is required");
+	   $('.deleteBtn').click(function(e) {
+	         e.preventDefault();
+                      var userid = $('.save-userid-field').val();
+				        if(userid.length==0){
+				        alert("id field is required");
 					return false;
 				}
-
-				/* if( task.length == 0 ) {
-					alert("task  Field is required");
-					return false;
-				}*/
-
 				var request = $.ajax({
 					"url": "http://localhost:3001/delete",
 					"type": "POST",
@@ -182,13 +165,12 @@
 				});
 			});
 
-			// view data
-			$('.viewBtn').click(function(e) {
-				e.preventDefault();
-
-				var userid = $('.save-userid-field').val();
-				var task = $('.save-task-field').val();
-				var date = $('.save-date-field').val();
+	// view data
+	   $('.viewBtn').click(function(e) {
+		e.preventDefault();
+                     var userid = $('.save-userid-field').val();
+		     var task = $('.save-task-field').val();
+		     var date = $('.save-date-field').val();
 					var request = $.ajax({
 					"url": "http://localhost:3001/view",
 					"type": "POST",
@@ -217,13 +199,6 @@
 
 		});
 
-		// $(window).load(function(){
-
-		// });
-		
-		// $(window).scroll();
-		
-		// $(window).resize();
 	</script>
 </body>
 </html>
