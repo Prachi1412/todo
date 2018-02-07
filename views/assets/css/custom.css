@@ -5,3 +5,13 @@
     padding: 15px 30px;
 }
 
+.userListWrap {display: none;
+    background: #fff;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 1px #ccc;}
+ .taskListWrap {display: none;
+    background: #fff;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 1px #ccc;}

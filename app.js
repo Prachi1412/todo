@@ -4,12 +4,26 @@ var mysql = require('mysql');
 var app = express();
 var bodyParser = require('body-parser');
 var md5 = require('md5');
+var multer = require('multer');
 
 app.use(express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, "uploads")));
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(bodyParser.json());
+var storage = multer.diskStorage({
+    	destination: function(req, file, callback) {
+        callback(null, './uploads/user');
+    	},
+    	filename: function(req, file, callback) {
+        var fileUniqueName = md5(Date.now());
+        callback(null,  fileUniqueName + path.extname(file.originalname));
+    }
+});
+
+var upload = multer({ storage: storage });
+
 
 
 var connection = mysql.createConnection({
@@ -112,19 +126,6 @@ app.post('/signup', function(req, res) {
 	var userid = req.body.userid;
 	var task = req.body.task;
 	var date = req.body.date;
-	//var user_id = "1";
-
-	/*var sql = "SELECT * FROM `user` WHERE `email`=?";
-	var values = [email, password];
-
-	connection.query(sql, values, function(err, result){
-		if (err) {
-			console.log(err);
-		} else if (result.length >0 ){
-			res.send('Email is already registered');
-			//console.log("email is already exist");
-			
-		} else {*/
 			var sql = "INSERT INTO `task1`(`userid`, `task`, `date`) VALUES (?,?,?)";
 			var values = [userid,task,date];
 
@@ -172,29 +173,69 @@ app.post('/signup', function(req, res) {
 			}
 		});
 	});
+   // for view
+				app.post('/viewUser', function(req, res) {
+					var userid = req.body.userid;
 
-		app.post('/view', function(req, res) {
-		var userid = req.body.userid;
-		var task = req.body.task;
-		var date = req.body.date;
-		console.log(req.body);
-		var sql = "SELECT * from task1 WHERE `userid`=?";
-		var values = [userid,task,date];
+					var sql = "SELECT * from `user`";
+					var values = [];
+					connection.query(sql,values,function(err, result){
+						console.log(err);
+						if (err) {
+							console.log(err);
+						} else {
+							res.send(result);
+						}
+					});
+				});
 
-		connection.query(sql,values,function(err, result){
-			if (err) {
+	//for show your task
+	            app.post('/viewTask', function(req, res) {
+					var userid = req.body.userid;
+
+					var sql = "SELECT * from `task1`";
+					var values = [];
+					connection.query(sql,values,function(err, result){
+						console.log(err);
+						if (err) {
+							console.log(err);
+						} else {
+							res.send(result);
+						}
+					});
+				});
+
+				app.post('/uploadImage', upload.any(), function(req, res){
+				var file = req.files;
+				console.log(file);
+				var user_id = req.body.user_id;
+
+				// console.log(file);
+				// console.log(user_id);
+
+				if ( file == undefined ) {
+					console.log(err);
+				} else {
+				var sql = "UPDATE `user` SET `profile_image`=? WHERE `user_id`=?";
+				connection.query(sql, [file.filename, user_id], function(err, result){
+				if (err){
 				console.log(err);
-			} else {
-				res.send('success');
-			}
-		});
-	});
+				} else {
+					var response = {
+					status: 1,
+					message: "Upload successfully."
+				}
+				res.send(response);
+				}
+
+				});
+				}
+
+				});
+	
 
 
 	
-	
-
-
-app.listen('3001', function(){
+    app.listen('3001', function(){
 	console.log("Server chal rha hai 3001 pr");
 });

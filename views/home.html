@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tset</title>
+	<title>Test</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 </head>
@@ -10,7 +10,7 @@
 	<header>
 		<nav>
 			<div class="navbar">
-				Test
+				<a href="" class="btn btn-info logOutBtn">Signout</a>
 			</div>
 		</nav>
 	</header>
@@ -18,7 +18,8 @@
 	<!-- Main Content -->
 	<section>
 		<div class="jumbotron">
-			<h1>Welcome <span class="nameField"></span>!!!</h1>
+			<h1>Welcome <span class="nameField"></span>!!!</h1><br><br>
+			
 		</div>
 	</section>
 
@@ -37,6 +38,12 @@
 			$('.nameField').empty();
 			$('.nameField').html(userData.name);
 		});
+		$('.logOutBtn').click(function(e){
+				 e.preventDefault();
+ 				console.log("dkjdkjdkjd");
+ 				localStorage.removeItem("user");
+				 window.location.replace('index.html');
+				});
 	</script>
 </body>
 </html>
