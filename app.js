@@ -20,14 +20,7 @@ var connection = mysql.createConnection({
 });
  
 connection.connect();
- 
-// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//   if (error) throw error;
-//   console.log('The solution is: ', results[0].solution);
-// });
-
-
-// For login
+ // For login
 app.post('/login', function(req, res) {
 	var email = req.body.email;
 	var password = req.body.password;
@@ -112,19 +105,6 @@ app.post('/signup', function(req, res) {
 	var userid = req.body.userid;
 	var task = req.body.task;
 	var date = req.body.date;
-	//var user_id = "1";
-
-	/*var sql = "SELECT * FROM `user` WHERE `email`=?";
-	var values = [email, password];
-
-	connection.query(sql, values, function(err, result){
-		if (err) {
-			console.log(err);
-		} else if (result.length >0 ){
-			res.send('Email is already registered');
-			//console.log("email is already exist");
-			
-		} else {*/
 			var sql = "INSERT INTO `task1`(`userid`, `task`, `date`) VALUES (?,?,?)";
 			var values = [userid,task,date];
 
@@ -189,12 +169,6 @@ app.post('/signup', function(req, res) {
 			}
 		});
 	});
-
-
-	
-	
-
-
-app.listen('3001', function(){
+         app.listen('3001', function(){
 	console.log("Server chal rha hai 3001 pr");
 });
