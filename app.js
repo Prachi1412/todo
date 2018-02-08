@@ -24,9 +24,13 @@ var connection = mysql.createConnection({
 	var password = md5(password);
 	var values = [email, password];
         connection.query(sql, values, function(err,result){
-		console.log(result);
 		if (err) {
-			console.log(err);
+		         if (err) {
+			var error={
+				status:0,
+				message:"error in execution"
+			}
+			res.send(error);
 		         } else {
                                 if ( result.length > 0 ) {
                                 result[0].password = "";
@@ -62,15 +66,23 @@ var connection = mysql.createConnection({
 	var values = [email, password];
         connection.query(sql, values, function(err, result){
 		if (err) {
-			console.log(err);
-		         } else if (result.length >0 ){
+			var error={
+				status:0,
+				message:"error in execution"
+			}
+			res.send(error);
+		        } else if (result.length >0 ){
 			res.send('Email is already registered');
 			} else {
 			var sql = "INSERT INTO `user`(`user_id`, `name`, `email`, `password`) VALUES (?,?,?,?)";
 			var values = [user_id, name, email, password];
                         connection.query(sql, values, function(err, result){
-				if (err) {
-					console.log(err);
+		  if (err) {
+			    var error={
+				status:0,
+				message:"error in execution"
+			}
+			res.send(error);  
 				} else {
 					res.send('success');
 				}
@@ -87,8 +99,12 @@ var connection = mysql.createConnection({
 	var sql = "INSERT INTO `task1`(`userid`, `task`, `date`) VALUES (?,?,?)";
 	var values = [userid,task,date];
         connection.query(sql, values, function(err, result){
-				if (err) {
-					console.log(err);
+		   if (err) {
+			var error={
+				status:0,
+				message:"error in execution"
+			}
+			res.send(error);
 				} else {
 					res.send('success');
 				}
@@ -103,8 +119,12 @@ var connection = mysql.createConnection({
 	var sql = "update task1 set `task`=?,`date`=? WHERE `userid`=?";
 	var values = [task,date, userid];
         connection.query(sql,values,function(err, result){
-			if (err) {
-				console.log(err);
+	        if (err) {
+		       var error={
+				status:0,
+				message:"error in execution"
+			}
+			res.send(error);
 			} else {
 				res.send('success');
 			}
@@ -118,8 +138,12 @@ var connection = mysql.createConnection({
 	var sql = "delete from task1 WHERE `userid`=?";
 	var values = [userid];
         connection.query(sql,values,function(err, result){
-			if (err) {
-				console.log(err);
+	          if (err) {
+		        var error={
+				status:0,
+				message:"error in execution"
+			}
+			 res.send(error);
 			} else {
 				res.send('success');
 			}
@@ -133,8 +157,12 @@ var connection = mysql.createConnection({
 	var sql = "SELECT * from task1 WHERE `userid`=?";
 	var values = [userid,task,date];
         connection.query(sql,values,function(err, result){
-			if (err) {
-				console.log(err);
+		if (err) {
+		      var error={
+				status:0,
+				message:"error in execution"
+			}
+			res.send(error);
 			  } else {
 				res.send('success');
 			  }
